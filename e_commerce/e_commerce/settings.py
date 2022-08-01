@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'products',
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 MIDDLEWARE = [
@@ -56,6 +58,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'e_commerce.urls'
+
 
 TEMPLATES = [
     {
