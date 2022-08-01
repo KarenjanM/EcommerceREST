@@ -3,6 +3,17 @@ from .models import Product
 
 
 class ProductSerializer(ModelSerializer):
+
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = (
+            "id",
+            "name",
+            "description",
+            "price",
+            'image',
+            'thumbnail',
+            'get_url',
+            "get_image",
+            'get_thumbnail',
+        )
