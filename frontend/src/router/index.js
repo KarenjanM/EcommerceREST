@@ -5,6 +5,8 @@ import SearchView from "@/views/SearchView";
 import CartView from "@/views/CartView";
 import SignUpView from "@/views/SignUpView";
 import LoginView from "@/views/LoginView";
+import MyAccount from "@/views/MyAccount";
+import store from '../store'
 
 const routes = [
   {
@@ -45,11 +47,25 @@ const routes = [
     name: 'Login',
     component: LoginView
   },
+  {
+    path: '/my-account',
+    name: 'MyAccount',
+    component: MyAccount,
+    meta: {
+        requireLogin: true
+    }
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
-
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requireLogin) && !store.state.isAuthenticated) {
+    next({ name: 'Login', query: { to: to.path } });
+  } else {
+    next()
+  }
+})
 export default router
