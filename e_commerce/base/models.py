@@ -12,5 +12,5 @@ class Order(models.Model):
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(default=1)
     date_added = models.DateField(auto_now_add=True)
