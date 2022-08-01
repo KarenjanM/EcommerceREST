@@ -15,20 +15,20 @@
       <div class="navbar-start">
         <div class="navbar-item">
           <form method="get" action="/search">
-            <div class="field has-addons">
-              <div class="control">
-                <input type="text" class="input" placeholder="What are you looking for?" name="query">
-              </div>
+              <div class="field has-addons">
+                <div class="control">
+                  <input type="text" class="input" placeholder="What are you looking for?" name="query">
+                </div>
 
-              <div class="control">
-                <button class="button is-success">
+                <div class="control">
+                  <button class="button is-success">
                       <span class="icon">
                       <i class="fas fa-search"></i>
                       </span>
-                </button>
+                  </button>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
         </div>
       </div>
 
@@ -38,7 +38,7 @@
             <router-link to="/log-in" class="button is-light">Log in</router-link>
             <router-link to="/cart" class="button is-success">
               <span class="icon"><i class="fas fa-shopping-cart"></i></span>
-              <span>Cart</span>
+              <span>Cart ({{ cartTotalLength }})</span>
             </router-link>
           </div>
         </div>
@@ -57,8 +57,27 @@ export default {
   data() {
     return {
       showMobileMenu: false,
+      cart: {
+        items: []
+      }
     }
-  }
+  },
+  mounted() {
+    this.cart = this.$store.state.cart
+  },
+  beforeCreate() {
+    this.$store.commit('initializeStore')
+  },
+  computed:{
+    cartTotalLength(){
+      let total_length = 0;
+      for (let i = 0; i < this.cart.items.length; i++)
+      {
+        total_length += this.cart.items[i].quantity
+      }
+      return total_length
+    },
+  },
 }
 </script>
 <style lang="scss">
